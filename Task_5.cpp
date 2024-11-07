@@ -1,30 +1,46 @@
 #include "AVLTree.h"
+#include <limits>
 
 int main() {
-    Node* root = nullptr;             // Инициализируем корень дерева как пустой
+    Node* root = nullptr;
     int value;
 
     cout << "Введите последовательность целых чисел, заканчивающуюся нулем:" << endl;
     while (true) {
-        cin >> value;                 // Вводим значение
-        if (value == 0) {             // Если введено значение 0, завершаем ввод
-            break;
+        try {
+            cin >> value;
+            if (cin.fail()) {  // Проверка на некорректный ввод (например, буквы вместо цифр)
+                throw runtime_error("Ошибка: введите корректное целое число.");
+            }
+
+            if (value == 0) {  // Завершаем ввод при вводе 0
+                break;
+            }
+
+            root = insert(root, value);
+        } catch (const runtime_error& e) {
+            cerr << e.what() << endl;
+            cin.clear();  // Сброс состояния ошибки
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Очистка входного буфера
         }
-        root = insert(root, value);   // Вставляем значение в дерево
     }
 
     // Проверка сбалансированности дерева
-    bool isBalanced = true;           // Инициализируем флаг сбалансированности как true
-    checkBalance(root, isBalanced);   // Вызываем функцию проверки сбалансированности
+    try {
+        bool isBalanced = true;  // Инициализируем флаг сбалансированности
+        checkBalance(root, isBalanced);
 
-    if (isBalanced) {                 // Если дерево сбалансировано
-        cout << "YES" << endl;
-    } else {                          // Если дерево не сбалансировано
-        cout << "NO" << endl;
+        if (isBalanced) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    } catch (const runtime_error& e) {
+        cerr << "Ошибка при проверке сбалансированности дерева: " << e.what() << endl;
     }
 
     // Освобождение памяти
-    freeTree(root);                   // Освобождаем память, занятую деревом
+    freeTree(root);
 
     return 0;
 }
