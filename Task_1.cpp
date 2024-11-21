@@ -1,17 +1,18 @@
 #include "Stack.h"
 
 int main() {
-    string expression;
-    cout << "Enter an arithmetic expression: ";
-    getline(cin, expression);
-    
     try {
-        string postfix = infixToPostfix(expression);
-        int result = evaluatePostfix(postfix);
-        cout << "Result: " << result << endl;
-    } catch (const runtime_error& e) {
-        cerr << "Error: " << e.what() << endl;
+        string expression;
+        cout << "Введите арифметическое выражение: ";
+        getline(cin, expression);
+ 
+        string postfix = infixToPostfix(expression); // Преобразуем в постфиксную нотацию.
+        cout << "Постфиксное выражение: " << postfix << endl;
+ 
+        int result = evaluatePostfix(postfix);       // Вычисляем результат.
+        cout << "Результат: " << result << endl;
+    } catch (const exception& ex) {
+        cerr << ex.what() << endl;                   // Выводим сообщение об ошибке.
     }
-    
     return 0;
 }

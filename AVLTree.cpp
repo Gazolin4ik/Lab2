@@ -1,5 +1,7 @@
 #include "AVLTree.h"
 
+// 7 3 2 1 9 5 4 6 8 0
+
 // Структура для узла дерева
 struct Node {
     int value;          // Значение узла

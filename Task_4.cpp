@@ -2,28 +2,24 @@
 
 int main() {
     Array arr;
-    initArray(arr);
+    initArray(arr, 4); // Инициализируем массив с емкостью 4
 
-    int numElements;
+    int n;
     cout << "Введите количество элементов в массиве: ";
-    cin >> numElements;
+    cin >> n;
 
-    cout << "Введите элементы массива:\n";
-    for (int i = 0; i < numElements; ++i) {
+    for (int i = 0; i < n; ++i) {
         string element;
         cout << "Элемент " << (i + 1) << ": ";
         cin >> element;
-        addElement(arr, element);
+        addElement(arr, element); // Добавляем элементы в массив
     }
 
     cout << "Исходный массив: ";
     printArray(arr);
 
-    // Вывод всех подмассивов
-    printAllSubarrays(arr);
+    printAllSubsets(arr); // Выводим все подмножества
 
-    // Освобождение памяти
-    freeArray(arr);
-
+    freeArray(arr); // Освобождаем память
     return 0;
 }
